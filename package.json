@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/megamsquare/dsandanode#readme",
   "dependencies": {
+    "@hashgraph/hethers": "^1.2.2",
     "@hashgraph/sdk": "^2.18.2",
     "dotenv": "^16.0.2"
   }
