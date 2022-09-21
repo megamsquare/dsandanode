@@ -1,10 +1,8 @@
 const { logger } = require('./utils/logEvents');
+const errorHandler = require('./utils/errorHandler');
 const { format } = require('date-fns');
 const express = require('express');
 const app = express();
-const fs = require('fs');
-const fsPromises = fs.promises;
-const path = require('path');
 const cors = require('cors');
 // const EventEmitter = require('events');
 
@@ -27,7 +25,7 @@ const white_list = [
 
 const corsOptions = {
     origin: (origin, callback) => {
-        if(white_list.indexOf(origin) !== -1) {
+        if(white_list.indexOf(origin) !== -1 || !origin) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS for ' + origin));
@@ -45,6 +43,21 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send(format(new Date(), 'yyyy-MM-dd-HH:mm:ss'));
 });
+
+app.all('*', (req, res) => {
+    res.status(404);
+    if(req.accepts('json')) {
+        res.json({ error: 'Not found' });
+        return;
+    } else if(req.accepts('html')) {
+        res.send('<h1>Not found</h1>');
+        return;
+    } else {
+        res.type('txt').send('Not found');
+    }
+});
+
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);

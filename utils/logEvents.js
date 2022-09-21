@@ -25,9 +25,7 @@ const logger = (req, res, next) => {
         ip: req.ip, 
         headerOrigin: req.headers.origin 
     };
-    if(req.headers.origin !== undefined) {
-        logEvents(log, 'logger.txt');
-    }
+    logEvents(log, 'logger.txt');
     next();
 }
 
