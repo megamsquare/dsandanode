@@ -40,6 +40,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 
+// Routes
+app.use('/api', require('./routes/api'));
+
 app.get('/', (req, res) => {
     res.send(format(new Date(), 'yyyy-MM-dd-HH:mm:ss'));
 });
