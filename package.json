@@ -28,6 +28,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "hardhat": "^2.11.2",
     "nodemon": "^2.0.20"
   }
 }
